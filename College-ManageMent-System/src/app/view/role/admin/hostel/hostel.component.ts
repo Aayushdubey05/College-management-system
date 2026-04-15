@@ -19,6 +19,7 @@ import { HostelRes } from '../../../models/response_dto/hostel-res';
   selector: 'app-hostel',
   templateUrl: './hostel.component.html',
   styleUrls: ['./hostel.component.css'],
+  standalone: false,
 })
 export class HostelComponent implements OnInit {
   hostels: HostelRes[] = [];

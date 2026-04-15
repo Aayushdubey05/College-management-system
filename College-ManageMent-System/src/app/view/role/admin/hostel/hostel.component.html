@@ -126,8 +126,12 @@
           <div><strong>Type:</strong> {{ h.roomType || "N/A" }}</div>
           <div><strong>Floor:</strong> {{ h.floorNumber || "N/A" }}</div>
         </div>
-        <div class="data-row" *ngIf="h.studentId">
-          <div><strong>Student ID:</strong> {{ h.studentId }}</div>
+        <div class="data-row" *ngIf="h.studentName">
+          <div>
+            <strong>Student:</strong> {{ h.studentName }} ({{
+              h.studentRollNo
+            }})
+          </div>
         </div>
         <div class="fee-row">
           <div><strong>Hostel Fee:</strong> ₹{{ h.hostelFee || 0 }}</div>
