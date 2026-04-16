@@ -1,1 +1,143 @@
-<p>hostel works!</p>
+<div class="hostel-container">
+  <div class="section-header">
+    <div class="section-title">Hostel Management</div>
+    <button class="btn-add" (click)="toggleForm()">+ Add Allocation</button>
+  </div>
+
+  <form
+    class="card form-container"
+    *ngIf="showForm"
+    [formGroup]="hostelForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="card-header">
+      {{ editingId ? "Edit Hostel Allocation" : "Add Hostel Allocation" }}
+    </div>
+
+    <div class="form-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Hostel Name *</label>
+          <input
+            type="text"
+            formControlName="hostelName"
+            placeholder="e.g. Boys Hostel A"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Block Name</label>
+          <input
+            type="text"
+            formControlName="blockName"
+            placeholder="e.g. A-Block"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Room Number</label>
+          <input
+            type="text"
+            formControlName="roomNumber"
+            placeholder="e.g. 101"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Room Type</label>
+          <input
+            type="text"
+            formControlName="roomType"
+            placeholder="e.g. Single, Double"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Floor Number</label>
+          <input type="number" formControlName="floorNumber" />
+        </div>
+
+        <div class="form-group">
+          <label>Student ID (Allocated to)</label>
+          <input
+            type="number"
+            formControlName="studentId"
+            placeholder="Unique Student ID"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Hostel Fee (Monthly)</label>
+          <input type="number" formControlName="hostelFee" />
+        </div>
+
+        <div class="form-group">
+          <label>Mess Fee (Monthly)</label>
+          <input type="number" formControlName="messFee" />
+        </div>
+
+        <div class="form-group checkbox-group full">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="isOccupied" />
+            Room is currently occupied
+          </label>
+        </div>
+
+        <div class="form-group full actions">
+          <button class="btn-submit" type="submit">
+            {{ editingId ? "Update" : "Save" }}
+          </button>
+          <button type="button" class="btn-cancel" (click)="closeForm()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="card-grid">
+    <div class="hostel-card" *ngFor="let h of hostels">
+      <div class="hostel-header">
+        <div>
+          <div class="hostel-name">
+            {{ h.hostelName }}
+            <span
+              class="badge"
+              [class.occupied]="h.isOccupied"
+              [class.vacant]="!h.isOccupied"
+              >{{ h.isOccupied ? "Occupied" : "Vacant" }}</span
+            >
+          </div>
+          <div class="hostel-details">
+            {{ h.blockName ? h.blockName + " - " : "" }}Room {{ h.roomNumber }}
+          </div>
+        </div>
+
+        <div class="hostel-actions">
+          <button (click)="editHostel(h)">Edit</button>
+          <button class="btn-danger" (click)="deleteHostel(h.id!)">
+            Delete
+          </button>
+        </div>
+      </div>
+
+      <div class="hostel-body">
+        <div class="data-row">
+          <div><strong>Type:</strong> {{ h.roomType || "N/A" }}</div>
+          <div><strong>Floor:</strong> {{ h.floorNumber || "N/A" }}</div>
+        </div>
+        <div class="data-row" *ngIf="h.studentName">
+          <div>
+            <strong>Student:</strong> {{ h.studentName }} ({{
+              h.studentRollNo
+            }})
+          </div>
+        </div>
+        <div class="fee-row">
+          <div><strong>Hostel Fee:</strong> ₹{{ h.hostelFee || 0 }}</div>
+          <div><strong>Mess Fee:</strong> ₹{{ h.messFee || 0 }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
