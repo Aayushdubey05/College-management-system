@@ -1,1 +1,109 @@
-<p>exam works!</p>
+<div class="section-header">
+  <div class="section-title">Exams</div>
+  <button class="btn-add" (click)="toggleForm()">+ Add</button>
+</div>
+
+<!-- FORM -->
+<form class="card" *ngIf="showForm" [formGroup]="examForm" (ngSubmit)="onSubmit()">
+  <div class="card-header">
+    {{ editingId ? 'Edit Exam' : 'Add Exam' }}
+  </div>
+
+  <div class="form-body">
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Exam Type</label>
+        <select formControlName="examType">
+          <option value="MIDTERM">Midterm</option>
+          <option value="ENDTERM">Endterm</option>
+          <option value="PRACTICAL">Practical</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Session</label>
+        <input type="text" formControlName="session" placeholder="e.g., Fall 2026"/>
+      </div>
+
+      <div class="form-group">
+        <label>Exam Date</label>
+        <input type="date" formControlName="examDate" />
+      </div>
+
+      <div class="form-group">
+        <label>Room Number</label>
+        <input type="text" formControlName="roomNumber" />
+      </div>
+
+      <div class="form-group">
+        <label>Max Marks</label>
+        <input type="number" formControlName="maxMarks" />
+      </div>
+
+      <div class="form-group">
+        <label>Passing Marks</label>
+        <input type="number" formControlName="passingMarks" />
+      </div>
+
+      <div class="form-group">
+        <label>Start Time</label>
+        <input type="time" formControlName="startTime" />
+      </div>
+
+      <div class="form-group">
+        <label>End Time</label>
+        <input type="time" formControlName="endTime" />
+      </div>
+
+      <div class="form-group">
+        <label>Status</label>
+        <select formControlName="status">
+          <option value="SCHEDULED">Scheduled</option>
+          <option value="ONGOING">Ongoing</option>
+          <option value="COMPLETED">Completed</option>
+          <option value="CANCELLED">Cancelled</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Subject</label>
+        <select formControlName="subjectId">
+          <option value="">Select Subject</option>
+          <option *ngFor="let s of subjects" [value]="s.id">{{ s.subName }} ({{ s.subCode }})</option>
+        </select>
+      </div>
+
+      <div class="form-group full actions">
+        <button class="btn-submit" type="submit" [disabled]="examForm.invalid">
+          {{ editingId ? 'Update' : 'Save' }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="closeForm()">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<!-- CARDS -->
+<div class="card-grid">
+  <div class="item-card" *ngFor="let ex of exams">
+    <div class="item-header">
+      <div>
+        <div class="item-name">{{ ex.subjectName }} ({{ ex.subjectCode }})</div>
+        <div class="item-code">{{ ex.examType }} - {{ ex.session }}</div>
+      </div>
+      <div class="item-actions">
+        <button (click)="editExam(ex)">Edit</button>
+        <button (click)="deleteExam(ex.id)">Delete</button>
+      </div>
+    </div>
+    <div class="item-body">
+      <div><strong>Date:</strong> {{ ex.examDate }}</div>
+      <div><strong>Time:</strong> {{ ex.startTime }} - {{ ex.endTime }}</div>
+      <div><strong>Room:</strong> {{ ex.roomNumber }}</div>
+      <div><strong>Marks:</strong> {{ ex.passingMarks }} / {{ ex.maxMarks }}</div>
+      <div><strong>Status:</strong> {{ ex.status }}</div>
+    </div>
+  </div>
+</div>

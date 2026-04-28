@@ -94,6 +94,12 @@ public class ExamServiceImpl implements ExamService {
         e.setExamDate(d.getExamDate());
         e.setRoomNumber(d.getRoomNumber());
         e.setMaxMarks(d.getMaxMarks());
+        e.setPassingMarks(d.getPassingMarks());
+        e.setStartTime(d.getStartTime());
+        e.setEndTime(d.getEndTime());
+        if (d.getStatus() != null) {
+            e.setStatus(d.getStatus());
+        }
     }
 
     private ExamResponseDTO toResponse(Exam e) {
@@ -104,6 +110,10 @@ public class ExamServiceImpl implements ExamService {
         d.setExamDate(e.getExamDate());
         d.setRoomNumber(e.getRoomNumber());
         d.setMaxMarks(e.getMaxMarks());
+        d.setPassingMarks(e.getPassingMarks());
+        d.setStartTime(e.getStartTime());
+        d.setEndTime(e.getEndTime());
+        d.setStatus(e.getStatus());
         d.setSubjectName(e.getSubject() != null ? e.getSubject().getSubName() : null);
         d.setSubjectCode(e.getSubject() != null ? e.getSubject().getSubCode() : null);
         return d;

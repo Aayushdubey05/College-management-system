@@ -5,6 +5,10 @@ export interface ExamRes {
     examDate: string; // ISO date
     roomNumber: string;
     maxMarks: number;
+    passingMarks: number;
+    startTime: string;
+    endTime: string;
+    status: string;
     subjectName: string;
     subjectCode: string;
 }

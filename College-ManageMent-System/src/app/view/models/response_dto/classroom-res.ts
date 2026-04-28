@@ -7,6 +7,8 @@ export interface ClassroomRes {
     classroomType: "LECTURE_HALL" | "LABORATORY" | "SEMINAR_ROOM" | "COMPUTER_LAB" | "WORKSHOP" | "AUDITORIUM";
     hasProjector: boolean;
     hasAC: boolean;
+    hasSmartBoard: boolean;
+    hasAudioSystem: boolean;
     isAvailable: boolean;
     departmentName: string;
 }

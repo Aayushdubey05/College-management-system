@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+import com.ayush.College_Management_System.model.enums.ExamStatus;
 
 @Entity
 @Table(name = "exams")
@@ -23,6 +25,12 @@ public class Exam extends BaseEntity {
     private LocalDate examDate;
     private String roomNumber;
     private Integer maxMarks;
+    private Integer passingMarks;
+    private LocalTime startTime;
+    private LocalTime endTime;
+
+    @Enumerated(EnumType.STRING)
+    private ExamStatus status = ExamStatus.SCHEDULED;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sub_id", nullable = false)

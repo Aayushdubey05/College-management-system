@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import com.ayush.College_Management_System.model.enums.ExamStatus;
 
 @Data
 @NoArgsConstructor
@@ -18,6 +20,10 @@ public class ExamResponseDTO {
     private LocalDate examDate;
     private String roomNumber;
     private Integer maxMarks;
+    private Integer passingMarks;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private ExamStatus status;
     private String subjectName;
     private String subjectCode;
 }

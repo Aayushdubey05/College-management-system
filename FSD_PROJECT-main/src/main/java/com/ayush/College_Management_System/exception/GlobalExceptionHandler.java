@@ -272,10 +272,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleDataIntegrity(DataIntegrityViolationException ex,
                                                              HttpServletRequest request) {
 
-        String message = "Database constraint violation";
-
+        String message = "Database constraint violation: " + (ex.getMessage() != null ? ex.getMessage() : "Unknown");
+        System.out.println("====== EXCEPTION CAUGHT ======");
+        ex.printStackTrace();
+        
         if (ex.getMessage() != null && ex.getMessage().toLowerCase().contains("attendance")) {
             message = "Duplicate attendance entry (student + subject + date + lectureNumber)";
+        } else if (ex.getMostSpecificCause() != null) {
+            message = "Database constraint violation: " + ex.getMostSpecificCause().getMessage() ;
         }
 
         ErrorResponse error = new ErrorResponse(

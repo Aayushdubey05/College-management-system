@@ -15,6 +15,8 @@ public class ClassroomRequestDTO {
     private ClassroomType classroomType;
     private Boolean hasProjector;
     private Boolean hasAC;
+    private Boolean hasSmartBoard;
+    private Boolean hasAudioSystem;
     private Boolean isAvailable;
     private Long departmentId;
 }

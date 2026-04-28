@@ -69,7 +69,9 @@ public class InfrastructureServiceImpl implements InfrastructureService {
         e.setCapacity(d.getCapacity());
         e.setHasProjector(d.getHasProjector());
         e.setNoOfComputers(d.getNoOfComputers());
-        e.setStatus(d.getStatus());
+        e.setType(d.getType());
+        e.setLastMaintenanceDate(d.getLastMaintenanceDate());
+        if(d.getStatus() != null) e.setStatus(d.getStatus());
     }
 
     private InfrastructureResponseDTO toResponse(Infrastructure e) {
@@ -81,7 +83,9 @@ public class InfrastructureServiceImpl implements InfrastructureService {
         d.setCapacity(e.getCapacity());
         d.setHasProjector(e.getHasProjector());
         d.setNoOfComputers(e.getNoOfComputers());
+        d.setType(e.getType());
         d.setStatus(e.getStatus());
+        d.setLastMaintenanceDate(e.getLastMaintenanceDate());
         d.setDepartmentName(e.getDepartment() != null ? e.getDepartment().getName() : null);
         return d;
     }

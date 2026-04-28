@@ -49,6 +49,7 @@ public class ClassroomServiceImpl implements ClassroomService {
         e.setRoomNumber(d.getRoomNumber()); e.setBuilding(d.getBuilding()); e.setFloor(d.getFloor());
         e.setCapacity(d.getCapacity()); e.setClassroomType(d.getClassroomType());
         e.setHasProjector(d.getHasProjector()); e.setHasAC(d.getHasAC());
+        e.setHasSmartBoard(d.getHasSmartBoard()); e.setHasAudioSystem(d.getHasAudioSystem());
         if (d.getIsAvailable() != null) e.setIsAvailable(d.getIsAvailable());
     }
 
@@ -56,7 +57,9 @@ public class ClassroomServiceImpl implements ClassroomService {
         ClassroomResponseDTO d = new ClassroomResponseDTO();
         d.setId(e.getId()); d.setRoomNumber(e.getRoomNumber()); d.setBuilding(e.getBuilding());
         d.setFloor(e.getFloor()); d.setCapacity(e.getCapacity()); d.setClassroomType(e.getClassroomType());
-        d.setHasProjector(e.getHasProjector()); d.setHasAC(e.getHasAC()); d.setIsAvailable(e.getIsAvailable());
+        d.setHasProjector(e.getHasProjector()); d.setHasAC(e.getHasAC()); 
+        d.setHasSmartBoard(e.getHasSmartBoard()); d.setHasAudioSystem(e.getHasAudioSystem());
+        d.setIsAvailable(e.getIsAvailable());
         d.setDepartmentName(e.getDepartment() != null ? e.getDepartment().getName() : null);
         return d;
     }

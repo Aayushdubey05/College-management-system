@@ -5,6 +5,8 @@ export interface InfrastructureReq {
     capacity: number;
     hasProjector: boolean;
     noOfComputers: number;
+    type: string;
     status: string;
+    lastMaintenanceDate: string;
     departmentId: number;
 }

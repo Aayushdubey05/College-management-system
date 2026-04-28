@@ -25,6 +25,8 @@ public class Classroom extends BaseEntity {
 
     private Boolean hasProjector;
     private Boolean hasAC;
+    private Boolean hasSmartBoard;
+    private Boolean hasAudioSystem;
     private Boolean isAvailable = true;
 
     @ManyToOne(fetch = FetchType.LAZY)

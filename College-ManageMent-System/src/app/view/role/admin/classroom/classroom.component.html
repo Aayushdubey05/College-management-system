@@ -1,1 +1,115 @@
-<p>classroom works!</p>
+<div class="section-header">
+  <div class="section-title">Classrooms</div>
+  <button class="btn-add" (click)="toggleForm()">+ Add</button>
+</div>
+
+<!-- FORM -->
+<form class="card" *ngIf="showForm" [formGroup]="classroomForm" (ngSubmit)="onSubmit()">
+  <div class="card-header">
+    {{ editingId ? 'Edit Classroom' : 'Add Classroom' }}
+  </div>
+
+  <div class="form-body">
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Room Number</label>
+        <input type="text" formControlName="roomNumber" />
+      </div>
+
+      <div class="form-group">
+        <label>Building</label>
+        <input type="text" formControlName="building" />
+      </div>
+
+      <div class="form-group">
+        <label>Floor</label>
+        <input type="number" formControlName="floor" />
+      </div>
+
+      <div class="form-group">
+        <label>Capacity</label>
+        <input type="number" formControlName="capacity" />
+      </div>
+
+      <div class="form-group">
+        <label>Classroom Type</label>
+        <select formControlName="classroomType">
+          <option value="LECTURE_HALL">Lecture Hall</option>
+          <option value="LABORATORY">Laboratory</option>
+          <option value="SEMINAR_ROOM">Seminar Room</option>
+          <option value="COMPUTER_LAB">Computer Lab</option>
+          <option value="WORKSHOP">Workshop</option>
+          <option value="AUDITORIUM">Auditorium</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Department</label>
+        <select formControlName="departmentId">
+          <option value="">Select Department</option>
+          <option *ngFor="let d of departments" [value]="d.id">{{ d.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group full" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <input type="checkbox" formControlName="hasProjector" id="p1" style="height:auto"/>
+          <label for="p1">Projector</label>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <input type="checkbox" formControlName="hasAC" id="a1" style="height:auto"/>
+          <label for="a1">AC</label>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <input type="checkbox" formControlName="hasSmartBoard" id="s1" style="height:auto"/>
+          <label for="s1">Smart Board</label>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <input type="checkbox" formControlName="hasAudioSystem" id="au1" style="height:auto"/>
+          <label for="au1">Audio System</label>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <input type="checkbox" formControlName="isAvailable" id="avail" style="height:auto"/>
+          <label for="avail">Available</label>
+        </div>
+      </div>
+
+      <div class="form-group full actions">
+        <button class="btn-submit" type="submit" [disabled]="classroomForm.invalid">
+          {{ editingId ? 'Update' : 'Save' }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="closeForm()">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<!-- CARDS -->
+<div class="card-grid">
+  <div class="item-card" *ngFor="let cls of classrooms">
+    <div class="item-header">
+      <div>
+        <div class="item-name">{{ cls.roomNumber }}</div>
+        <div class="item-code">{{ cls.building }} - Floor {{ cls.floor }}</div>
+      </div>
+      <div class="item-actions">
+        <button (click)="editClassroom(cls)">Edit</button>
+        <button (click)="deleteClassroom(cls.id)">Delete</button>
+      </div>
+    </div>
+    <div class="item-body">
+      <div><strong>Dept:</strong> {{ cls.departmentName }}</div>
+      <div><strong>Type:</strong> {{ cls.classroomType }}</div>
+      <div><strong>Capacity:</strong> {{ cls.capacity }}</div>
+      <div>
+        <span *ngIf="cls.hasProjector" style="margin-right:8px">🎥 Projector</span>
+        <span *ngIf="cls.hasAC" style="margin-right:8px">❄️ AC</span>
+        <span *ngIf="cls.hasSmartBoard" style="margin-right:8px">🖥️ SmartBoard</span>
+        <span *ngIf="cls.hasAudioSystem" style="margin-right:8px">🔊 Audio</span>
+      </div>
+      <div><strong>Status:</strong> {{ cls.isAvailable ? '🟢 Available' : '🔴 In-use/Maintenance' }}</div>
+    </div>
+  </div>
+</div>

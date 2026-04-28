@@ -4,5 +4,9 @@ export interface ExamReq {
     examDate: string; // ISO date
     roomNumber: string;
     maxMarks: number;
+    passingMarks: number;
+    startTime: string;
+    endTime: string;
+    status: string;
     subjectId: number;
 }

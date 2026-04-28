@@ -1,1 +1,111 @@
-<p>infrastructure works!</p>
+<div class="section-header">
+  <div class="section-title">Infrastructure</div>
+  <button class="btn-add" (click)="toggleForm()">+ Add</button>
+</div>
+
+<!-- FORM -->
+<form class="card" *ngIf="showForm" [formGroup]="infraForm" (ngSubmit)="onSubmit()">
+  <div class="card-header">
+    {{ editingId ? 'Edit Infrastructure' : 'Add Infrastructure' }}
+  </div>
+
+  <div class="form-body">
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Room/Lab Name</label>
+        <input type="text" formControlName="roomOrLabName" />
+      </div>
+
+      <div class="form-group">
+        <label>Block</label>
+        <input type="text" formControlName="block" />
+      </div>
+
+      <div class="form-group">
+        <label>Floor</label>
+        <input type="number" formControlName="floor" />
+      </div>
+
+      <div class="form-group">
+        <label>Capacity</label>
+        <input type="number" formControlName="capacity" />
+      </div>
+
+      <div class="form-group">
+        <label>Computers Count</label>
+        <input type="number" formControlName="noOfComputers" />
+      </div>
+
+      <div class="form-group">
+        <label>Last Maintenance</label>
+        <input type="date" formControlName="lastMaintenanceDate" />
+      </div>
+
+      <div class="form-group">
+        <label>Type</label>
+        <select formControlName="type">
+          <option value="LAB">Lab</option>
+          <option value="LIBRARY">Library</option>
+          <option value="AUDITORIUM">Auditorium</option>
+          <option value="SPORTS_FACILITY">Sports</option>
+          <option value="CAFETERIA">Cafeteria</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Status</label>
+        <select formControlName="status">
+          <option value="ACTIVE">Active</option>
+          <option value="UNDER_MAINTENANCE">Maintenance</option>
+          <option value="INACTIVE">Inactive</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Department</label>
+        <select formControlName="departmentId">
+          <option value="">Select Department</option>
+          <option *ngFor="let d of departments" [value]="d.id">{{ d.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="flex-direction: row; align-items: center; gap: 10px; padding-top: 25px;">
+        <input type="checkbox" formControlName="hasProjector" id="hasProj" style="height: auto;"/>
+        <label for="hasProj">Has Projector?</label>
+      </div>
+
+      <div class="form-group full actions">
+        <button class="btn-submit" type="submit" [disabled]="infraForm.invalid">
+          {{ editingId ? 'Update' : 'Save' }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="closeForm()">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<!-- CARDS -->
+<div class="card-grid">
+  <div class="item-card" *ngFor="let infra of infrastructures">
+    <div class="item-header">
+      <div>
+        <div class="item-name">{{ infra.roomOrLabName }}</div>
+        <div class="item-code">{{ infra.block }} - Floor {{ infra.floor }}</div>
+      </div>
+      <div class="item-actions">
+        <button (click)="editInfra(infra)">Edit</button>
+        <button (click)="deleteInfra(infra.id)">Delete</button>
+      </div>
+    </div>
+    <div class="item-body">
+      <div><strong>Dept:</strong> {{ infra.departmentName }}</div>
+      <div><strong>Type:</strong> {{ infra.type }}</div>
+      <div><strong>Status:</strong> {{ infra.status }}</div>
+      <div><strong>Capacity:</strong> {{ infra.capacity }}</div>
+      <div *ngIf="infra.lastMaintenanceDate"><strong>Maintained:</strong> {{ infra.lastMaintenanceDate }}</div>
+    </div>
+  </div>
+</div>
